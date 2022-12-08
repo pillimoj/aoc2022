@@ -5,8 +5,16 @@ import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue
 
 @ExperimentalTime
-fun main() {
-    allDays
+fun main(args: Array<String>) {
+    val dayArg = args.firstOrNull()?.toIntOrNull()
+    val days = if(dayArg != null) {
+        val day = allDays.find { it.day == dayArg }
+        day?.run { listOf(this) } ?: emptyList()
+    }
+    else {
+        allDays
+    }
+    days
         .flatMap {
             listOf(
                 measureTimedValue { "Day ${it.day}a: ${it.a()}" },
