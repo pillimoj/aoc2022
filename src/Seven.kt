@@ -1,6 +1,6 @@
 package aoc
 
-val testInput = listOf<String>(
+private val testInput = listOf<String>(
 "$ cd /",
 "$ ls",
 "dir a",
