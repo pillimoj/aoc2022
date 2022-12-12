@@ -3,8 +3,6 @@ package aoc
 import kotlin.math.abs
 
 object Nine : Day(9) {
-    private fun Int.clamp1(): Int = coerceIn(-1, 1)
-
     enum class Direction(val coord: Coord) {
         U(Coord(0, 1)),
         D(Coord(0, -1)),
@@ -20,29 +18,6 @@ object Nine : Day(9) {
             fun fromCoord(coord: Coord): Direction {
                 return enumValues<Direction>().find { it.coord == coord } ?: throw IllegalArgumentException()
             }
-        }
-    }
-
-    data class Coord(val x: Int, val y: Int) {
-
-        operator fun plus(other: Coord): Coord {
-            return Coord(x + other.x, y + other.y)
-        }
-
-        operator fun minus(other: Coord): Coord {
-            return Coord(x - other.x, y - other.y)
-        }
-
-        private fun clamped1(): Coord {
-            return Coord(x.clamp1(), y.clamp1())
-        }
-
-        fun directionTo(other: Coord): Direction {
-            return Direction.fromCoord((other - this).clamped1())
-        }
-
-        fun isAdjacent(other: Coord): Boolean {
-            return abs(x - other.x) <= 1 && abs(y - other.y) <= 1
         }
     }
 
