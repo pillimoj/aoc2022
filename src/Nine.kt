@@ -3,24 +3,6 @@ package aoc
 import kotlin.math.abs
 
 object Nine : Day(9) {
-    enum class Direction(val coord: Coord) {
-        U(Coord(0, 1)),
-        D(Coord(0, -1)),
-        L(Coord(-1, 0)),
-        R(Coord(1, 0)),
-        UR(U.coord + R.coord),
-        DR(D.coord + R.coord),
-        DL(D.coord + L.coord),
-        UL(U.coord + L.coord),
-        None(Coord(0, 0));
-
-        companion object {
-            fun fromCoord(coord: Coord): Direction {
-                return enumValues<Direction>().find { it.coord == coord } ?: throw IllegalArgumentException()
-            }
-        }
-    }
-
     class Rope(input: List<String>, knotCount: Int) {
         private val knots = MutableList(knotCount) { Coord(0, 0) }
         val tailVisitedPositions = mutableSetOf(knots.last())

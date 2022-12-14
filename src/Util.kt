@@ -43,8 +43,8 @@ data class Coord(val x: Int, val y: Int) {
         return Coord(x.clamp1(), y.clamp1())
     }
 
-    fun directionTo(other: Coord): Nine.Direction {
-        return Nine.Direction.fromCoord((other - this).clamped1())
+    fun directionTo(other: Coord): Direction {
+        return Direction.fromCoord((other - this).clamped1())
     }
 
     fun isAdjacent(other: Coord): Boolean {
@@ -58,6 +58,24 @@ data class Coord(val x: Int, val y: Int) {
             if (y > 0) add(copy(y = y - 1))
             if (y < gridSizeY - 1) add(copy(y = y + 1))
             if (includeDiagonal) TODO("Implement getting diagonal adjacent Coords")
+        }
+    }
+}
+
+enum class Direction(val coord: Coord) {
+    U(Coord(0, 1)),
+    D(Coord(0, -1)),
+    L(Coord(-1, 0)),
+    R(Coord(1, 0)),
+    UR(U.coord + R.coord),
+    DR(D.coord + R.coord),
+    DL(D.coord + L.coord),
+    UL(U.coord + L.coord),
+    None(Coord(0, 0));
+
+    companion object {
+        fun fromCoord(coord: Coord): Direction {
+            return enumValues<Direction>().find { it.coord == coord } ?: throw IllegalArgumentException()
         }
     }
 }
